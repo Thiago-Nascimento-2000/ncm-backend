@@ -1,41 +1,22 @@
-import { response, type Request, type Response } from "express";
-import axios from "axios";
-import ENV from "../env/index.js";
+import { type Request, type Response } from "express";
+import Clientes from "../services/ClientesService.js"
 
-const config = {
-  method: "get",
-  maxBodyLength: Infinity,
-  url: "https://netbird.sygpdv.com.br/api/peers",
-  headers: {
-    Accept: "application/json",
-    Authorization: `Bearer ${ENV.NETBIRD_TOKEN}`,
-  },
-};
 
-interface INames {
-  name: string, 
-}
+const ClientesAttController = async (_: Request, res: Response) => {
 
-const ClientesAttController = (_: Request, res: Response) => {
+  try {
+    const clientes = await Clientes();
 
-  axios.request(config)
-    .then((response) => {
-
-      const clientesName = response.data.map((item: INames) => item.name)
-
-      return res.status(200).json({
-        clientesName,
-        data: response.data
-      });
-
+    res.status(200).json({
+      clientes
     })
-    .catch((error) => {
 
-      return res.status(500).json({ message: "Error fetching client data", error });
-
+  } catch (error) {
+    return res.status(500).json({
+      message: "Erro ao buscar clientes",
+      error,
     });
-
-    
+  } 
 };
 
 export default ClientesAttController;
