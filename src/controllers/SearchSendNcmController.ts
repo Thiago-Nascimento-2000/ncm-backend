@@ -6,7 +6,7 @@ const SearchSendNcmController = async (_: Request, res: Response) => {
 
     const filePath = (await DownloadNcm()).toString();
 
-    res.download(filePath);
+    res.status(200).download(filePath);
 }
 
 export default SearchSendNcmController;
