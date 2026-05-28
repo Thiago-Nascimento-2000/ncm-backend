@@ -1,9 +1,9 @@
 import type { Request, Response } from 'express';
-import autenticator from '../services/DownloadNcmListService.js';
+import DownloadNcmList from '../services/DownloadNcmListService.js';
 
 const DownloadNcmListController = async (_: Request, res: Response) => {
     
-    await autenticator();
+    await DownloadNcmList();
 
     res.status(200).json({
         message: "Dados do NCM baixados com sucesso!",
