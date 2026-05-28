@@ -2,6 +2,7 @@ import mysql, { type RowDataPacket } from 'mysql2/promise';
 import fs from 'fs';
 import { writeToPath } from '@fast-csv/format';
 import path from 'path';
+import ENV from '../env/index.js';
 
 interface INcmDb extends RowDataPacket {
     ncm: string;
@@ -18,10 +19,10 @@ interface IResultNcm extends RowDataPacket {
 
 const DownloadNcm = async () => {
     const connection = await mysql.createConnection({
-        host: "147.93.146.40",
-        user: "root",
-        password: "ipdv@1216699",
-        database: "nexus"
+        host: ENV.DB_HOST!,
+        user: ENV.DB_USER!,
+        password: ENV.DB_PASSWORD!,
+        database: ENV.DB_DATABASE!
     });
 
     //lê arquivo
